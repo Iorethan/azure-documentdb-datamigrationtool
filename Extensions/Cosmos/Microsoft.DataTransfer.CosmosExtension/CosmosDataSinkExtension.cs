@@ -82,7 +82,7 @@ namespace Microsoft.DataTransfer.CosmosExtension
 
         private static Task<int> InsertItemAsync(Container container, ExpandoObject item, AsyncRetryPolicy retryPolicy, CancellationToken cancellationToken)
         {
-            var task = retryPolicy.ExecuteAsync(() => container.CreateItemAsync(item, cancellationToken: cancellationToken))
+            var task = retryPolicy.ExecuteAsync(() => container.UpsertItemAsync(item, cancellationToken: cancellationToken))
                 .ContinueWith(t =>
                 {
                     if (t.IsCompletedSuccessfully)
